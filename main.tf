@@ -123,7 +123,7 @@ resource "aws_security_group" "allow_web_elb" {
 resource "aws_launch_configuration" "web_setup_launch_config" {
     name_prefix = "lc-${var.prefix}-"
 
-    image_id = "$(var.ami == '' ? data.aws_ami.amazon-linux-2.id : var.ami}"
+    image_id = "${var.ami == "" ? data.aws_ami.amazon-linux-2.id : var.ami}"
     instance_type = var.instance_type
     key_name = var.key_name
     user_data = "${file(var.user_data)}"
