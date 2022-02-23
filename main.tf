@@ -228,7 +228,7 @@ resource "aws_alb_listener" "web_setup_alb_listener" {
 }
 
 resource "aws_autoscaling_attachment" "web_setup_as_attach" {
-    alb_target_group_arn = aws_alb_target_group.web_setup_tg.arn
+    lb_target_group_arn = aws_alb_target_group.web_setup_tg.arn
     autoscaling_group_name = aws_autoscaling_group.web_setup_as_group.id
 }
 
