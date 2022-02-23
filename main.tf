@@ -6,6 +6,22 @@ data "aws_availability_zones" "available_zones" {
     state = "available"
 }
 
+data "aws_ami" "amazon-linux-2" {
+ most_recent = true
+
+
+ filter {
+   name   = "owner-alias"
+   values = ["amazon"]
+ }
+
+
+ filter {
+   name   = "name"
+   values = ["amzn2-ami-hvm*"]
+ }
+}
+
 resource "aws_subnet" "server_subnet_primary" {
     vpc_id = var.vpc_id
     cidr_block = var.cidr_block_primary
@@ -106,8 +122,8 @@ resource "aws_security_group" "allow_web_elb" {
 
 resource "aws_launch_configuration" "web_setup_launch_config" {
     name_prefix = "lc-${var.prefix}-"
-    
-    image_id = var.ami
+
+    image_id = "$(var.ami == '' ? data.aws_ami.amazon-linux-2.id : var.ami}"
     instance_type = var.instance_type
     key_name = var.key_name
     user_data = "${file(var.user_data)}"

@@ -1,19 +1,3 @@
-data "aws_ami" "amazon-linux-2" {
- most_recent = true
-
-
- filter {
-   name   = "owner-alias"
-   values = ["amazon"]
- }
-
-
- filter {
-   name   = "name"
-   values = ["amzn2-ami-hvm*"]
- }
-}
-
 variable "vpc_id" {
     type = string
     description = "VPC ID"
@@ -39,7 +23,7 @@ variable "server_name" {
 variable "ami" {
     type = string
     description = "AMI to use for webserver"
-    default = data.aws_ami.amazon-linux-2.id
+    default = "ami-08e4e35cccc6189f4"
 }
 
 variable "instance_type" {
