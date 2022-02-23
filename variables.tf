@@ -39,7 +39,7 @@ variable "server_name" {
 variable "ami" {
     type = string
     description = "AMI to use for webserver"
-    default = "${data.aws_ami.amazon-linux-2.id}"
+    default = data.aws_ami.amazon-linux-2.id
 }
 
 variable "instance_type" {
