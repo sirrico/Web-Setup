@@ -34,6 +34,33 @@ resource "aws_subnet" "server_subnet_secondary" {
     availability_zone = data.aws_availability_zones.available_zones.names[1]
 }
 
+resource "aws_internet_gateway" "public_gw" {
+    vpc_id = var.vpc_id
+}
+
+resource "aws_route_table" "routing_table" {
+    vpc_id = var.vpc_id
+
+    route {
+        cidr_block = "0.0.0.0/0"
+        gateway_id = aws_internet_gateway.public_gw.id
+    }
+
+    route {
+        ipv6_cidr_block = "::/0"
+        gateway_id = aws_internet_gateway.public_gw.id
+    }
+}
+
+resource "aws_route_table_association" "route_association" {
+    subnet_id = aws_subnet.server_subnet_primary.id
+    route_table_id = aws_route_table.routing_table.id
+}
+resource "aws_route_table_association" "route_association_secondary" {
+    subnet_id = aws_subnet.server_subnet_secondary.id
+    route_table_id = aws_route_table.routing_table.id
+}
+
 resource "aws_security_group" "allow_web" {
     name = "allow-web-traffic"
     description = "Allow inbound traffic on 22, 80, and 445"
