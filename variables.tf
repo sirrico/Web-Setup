@@ -3,21 +3,14 @@ variable "vpc_id" {
     description = "VPC ID"
 }
 
-variable "cidr_block_primary" {
-    type = string
-    description = "Subnet CIDR block for 1st AZ"
-    default = "10.0.1.0/24"
-}
-
-variable "cidr_block_secondary" {
-    type = string
-    description = "Subnet CIDR block for 2nd AZ"
-    default = "10.0.2.0/24"
-}
-
 variable "server_name" {
     type = string
     description = "Name of the webserver"
+}
+
+variable "public_subnets" {
+    type = list(string)
+    description = "List of public subnets"
 }
 
 variable "ami" {

@@ -1,22 +1,3 @@
-output "server_subnet_primary" {
-    value = aws_subnet.server_subnet_primary
-}
-
-output "server_subnet_secondary" {
-    value = aws_subnet.server_subnet_secondary
-}
-
-output "public_gw" {
-    value = aws_internet_gateway.public_gw
-}
-
-output "routing_table" {
-    value = aws_route_table.routing_table
-}
-
-output "route_association" {
-    value = aws_route_table_association.route_association
-}
 
 output "allow_web" {
     value = aws_security_group.allow_web
